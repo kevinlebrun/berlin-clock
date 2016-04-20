@@ -42,11 +42,16 @@ model seconds =
           On
         else
           Off
-    , line1 = List.take 4 <| (List.repeat (hours // 5) On) ++ (List.repeat 4 Off)
-    , line2 = List.take 4 <| (List.repeat (hours % 5) On) ++ (List.repeat 4 Off)
-    , line3 = List.take 11 <| (List.repeat (minutes // 5) On) ++ (List.repeat 11 Off)
-    , line4 = List.take 4 <| (List.repeat (minutes % 5) On) ++ (List.repeat 4 Off)
+    , line1 = padR 4 Off <| List.repeat (hours // 5) On
+    , line2 = padR 4 Off <| List.repeat (hours % 5) On
+    , line3 = padR 11 Off <| List.repeat (minutes // 5) On
+    , line4 = padR 4 Off <| List.repeat (minutes % 5) On
     }
+
+
+padR : Int -> a -> List a -> List a
+padR n default list =
+    List.take n <| list ++ (List.repeat n default)
 
 
 view : Model -> Html
