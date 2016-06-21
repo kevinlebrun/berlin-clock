@@ -8,14 +8,11 @@ Clock](https://en.wikipedia.org/wiki/Mengenlehreuhr) or directly see the
 
 ## Usage
 
-    $ elm package install
-    $ elm reactor
+    $ npm install
+    $ ./node_modules/.bin/elm-package install
+    $ ./node_modules/.bin/elm-make Main.elm --output index.html
 
-Then go to `http://localhost:8000` with your prefered browser.
-
-## Compile
-
-    $ elm make Main.elm --output index.html
+Then open `index.html` with your prefered browser.
 
 ## License
 

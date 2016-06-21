@@ -1,0 +1,22 @@
+{
+  "name": "berlin-clock",
+  "version": "1.0.0",
+  "description": "An implementation of the Berlin Clock in Elm",
+  "main": " ",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kevinlebrun/berlin-clock.git"
+  },
+  "author": "Kevin LE BRUN <lebrun.k@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/kevinlebrun/berlin-clock/issues"
+  },
+  "homepage": "https://github.com/kevinlebrun/berlin-clock#readme",
+  "dependencies": {
+    "elm": "^0.16.0"
+  }
+}
