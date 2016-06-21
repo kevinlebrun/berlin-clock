@@ -17,6 +17,6 @@
   },
   "homepage": "https://github.com/kevinlebrun/berlin-clock#readme",
   "dependencies": {
-    "elm": "^0.16.0"
+    "elm": "^0.17.0"
   }
 }

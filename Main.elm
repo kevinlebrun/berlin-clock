@@ -1,13 +1,11 @@
-module Main (..) where
+module Main exposing (..)
 
 import Date
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import String
 import Time
-import StartApp
-import Task
-import Effects exposing (Effects, Never)
+import Html.App as Html
 
 
 type alias Seconds =
@@ -57,8 +55,8 @@ padR n default list =
     List.take n <| list ++ (List.repeat n default)
 
 
-view : Signal.Address Seconds -> Model -> Html
-view address model =
+view : Model -> Html Seconds
+view model =
   div
     [ class "container" ]
     [ styles
@@ -73,35 +71,27 @@ view address model =
     ]
 
 
-light : State -> Html
+light : State -> Html Seconds
 light state =
   div [ classList [ ( "light", True ), ( "light--on", state == On ) ] ] [ text (String.fromChar '\xA0') ]
 
 
-app =
-  StartApp.start
-    { init = (model 0, Effects.none)
+main =
+  Html.program
+    { init = (model 0, Cmd.none)
     , view = view
     , update = update
-    , inputs = [tick]
+    , subscriptions = subscriptions
     }
 
 
-main =
-  app.html
-
-port tasks : Signal (Task.Task Never ())
-port tasks =
-  app.tasks
-
-
 update time _ =
-  (model time, Effects.none)
+  (model time, Cmd.none)
 
 
-tick : Signal Seconds
-tick =
-  Signal.map (round << Time.inSeconds) <| Time.every Time.second
+subscriptions : Model -> Sub Seconds
+subscriptions model =
+  Sub.map (round << Time.inSeconds) <| Time.every Time.second (\a -> a)
 
 
 
