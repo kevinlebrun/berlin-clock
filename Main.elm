@@ -5,6 +5,9 @@ import Html exposing (..)
 import Html.Attributes exposing (..)
 import String
 import Time
+import StartApp
+import Task
+import Effects exposing (Effects, Never)
 
 
 type alias Seconds =
@@ -54,8 +57,8 @@ padR n default list =
     List.take n <| list ++ (List.repeat n default)
 
 
-view : Model -> Html
-view model =
+view : Signal.Address Seconds -> Model -> Html
+view address model =
   div
     [ class "container" ]
     [ styles
@@ -75,9 +78,25 @@ light state =
   div [ classList [ ( "light", True ), ( "light--on", state == On ) ] ] [ text (String.fromChar '\xA0') ]
 
 
-main : Signal Html
+app =
+  StartApp.start
+    { init = (model 0, Effects.none)
+    , view = view
+    , update = update
+    , inputs = [tick]
+    }
+
+
 main =
-  Signal.map (view << model) tick
+  app.html
+
+port tasks : Signal (Task.Task Never ())
+port tasks =
+  app.tasks
+
+
+update time _ =
+  (model time, Effects.none)
 
 
 tick : Signal Seconds
